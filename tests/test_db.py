@@ -1,9 +1,10 @@
 import allure
 import mysql.connector
 
+# Используем имя сервиса и порт *внутри контейнера*
 DB_CONFIG = {
-    'host': 'localhost',
-    'port': 3307,  # или 3306, если вы не меняли порт
+    'host': 'mysql',
+    'port': 3306,
     'user': 'app',
     'password': 'app',
     'database': 'app'
