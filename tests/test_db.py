@@ -4,7 +4,7 @@ import mysql.connector
 # Используем имя сервиса и порт *внутри контейнера*
 DB_CONFIG = {
     'host': 'mysql',
-    'port': 3306,
+    'port': 3306,  # ← Всегда 3306, если сервис mysql слушает 3306
     'user': 'app',
     'password': 'app',
     'database': 'app'
