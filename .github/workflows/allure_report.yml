@@ -31,7 +31,7 @@ jobs:
         ports:
           - 3306:3306
 
-    steps:
+        steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -45,7 +45,7 @@ jobs:
           cd gate-simulator
           npm install
 
-      - name: Run gate-simulator in background
+      - name: Run gate-simulator as service
         run: |
           cd gate-simulator
           npm start &
@@ -76,4 +76,10 @@ jobs:
           name: allure-report
           path: allure-report
 
-      - name: Setup
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload to GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: allure-report
