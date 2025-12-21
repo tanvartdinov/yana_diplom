@@ -17,3 +17,7 @@ gate-simulator/node_modules/
 # Системные
 .DS_Store
 Thumbs.db
+
+gate-simulator/node_modules/
+aqa-shop/node_modules/
+node_modules/
