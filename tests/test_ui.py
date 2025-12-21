@@ -10,7 +10,7 @@ BASE_UI_URL = "http://aqa-shop:8080"
 @allure.description("Проверяем, что главная страница загружается")
 def test_page_loads():
     options = Options()
-    options.add_argument("--headless")  # Для запуска в CI
+    options.add_argument("--headless")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     driver = webdriver.Chrome(options=options)
@@ -18,6 +18,6 @@ def test_page_loads():
         with allure.step("Открытие главной страницы"):
             driver.get(BASE_UI_URL)
         with allure.step("Проверка заголовка"):
-            assert "тур" in driver.title.lower()  # или другое ожидаемое слово
+            assert "тур" in driver.title.lower()
     finally:
         driver.quit()
