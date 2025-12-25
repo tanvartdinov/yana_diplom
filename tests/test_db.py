@@ -1,7 +1,7 @@
 import allure
 import mysql.connector
 
-# Используем имя сервиса из docker-compose.yml
+# Используем имя сервиса из allure_report.yml
 DB_CONFIG = {
     'host': 'mysql',
     'port': 3306,
