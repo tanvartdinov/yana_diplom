@@ -49,7 +49,7 @@ jobs:
       # Ждём, пока все сервисы запустятся
       - name: Wait for services
         run: |
-          sleep 30
+          sleep 40  # Увеличили с 30 до 40
 
       # Запускаем тесты
       - name: Run tests with Allure
