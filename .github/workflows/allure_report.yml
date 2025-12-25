@@ -49,7 +49,12 @@ jobs:
       # Ждём, пока все сервисы запустятся
       - name: Wait for services
         run: |
-          sleep 40  # Увеличили с 30 до 40
+          sleep 50
+
+      # Проверяем, доступен ли aqa-shop
+      - name: Wait for aqa-shop to be ready
+        run: |
+          timeout 60 bash -c 'until curl -f http://localhost:8080; do sleep 2; done' || exit 1
 
       # Запускаем тесты
       - name: Run tests with Allure
