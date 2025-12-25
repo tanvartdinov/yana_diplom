@@ -1,8 +1,8 @@
 import requests
 import allure
 
-# Используем localhost, потому что сервис запускается в docker-compose
-BASE_GATE_URL = "http://localhost:9999"
+# Используем имя сервиса из docker-compose.yml / allure_report.yml
+BASE_GATE_URL = "http://gate-simulator:9999"
 
 @allure.title("API: Покупка тура с APPROVED картой")
 @allure.description("Отправляем данные карты 4444 4444 4444 4441, ожидаем APPROVED")
