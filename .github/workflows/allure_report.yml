@@ -19,19 +19,6 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    # Убираем build и depends_on из services
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: app
-          MYSQL_USER: app
-          MYSQL_PASSWORD: app
-        options: --health-cmd="mysqladmin ping -h localhost" --health-interval=10s --health-timeout=5s --health-retries=10
-        ports:
-          - 3306:3306
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -41,19 +28,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18'
-
-      # Устанавливаем зависимости gate-simulator
-      - name: Install gate-simulator dependencies
-        run: |
-          cd gate-simulator
-          npm install
-
-      # Запускаем gate-simulator как фоновый процесс
-      - name: Run gate-simulator in background
-        run: |
-          cd gate-simulator
-          npm start &
-          sleep 10  # Ждём, пока сервис запустится
 
       # Устанавливаем Python
       - name: Set up Python
@@ -67,21 +41,15 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      # Запускаем aqa-shop через Docker Compose
-      - name: Start aqa-shop with docker compose
+      # Запускаем все сервисы через docker-compose
+      - name: Start services with docker compose
         run: |
           docker compose up -d --build
-        env:
-          DB_HOST: mysql
-          DB_USER: app
-          DB_PASSWORD: app
-          DB_NAME: app
-          GATE_URL: http://localhost:9999
 
-      # Ждём, пока aqa-shop запустится
-      - name: Wait for aqa-shop
+      # Ждём, пока все сервисы запустятся
+      - name: Wait for services
         run: |
-          sleep 20
+          sleep 30
 
       # Запускаем тесты
       - name: Run tests with Allure
@@ -112,6 +80,19 @@ jobs:
           path: allure-report
 
   # Отдельный job для публикации на GitHub Pages
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4job для публикации на GitHub Pages
   deploy:
     needs: test
     runs-on: ubuntu-latest

@@ -1,9 +1,9 @@
 import allure
 import mysql.connector
 
-# Используем localhost, потому что mysql запускается как service
+# Используем имя сервиса из docker-compose.yml
 DB_CONFIG = {
-    'host': '127.0.0.1',  # или 'localhost'
+    'host': 'mysql',
     'port': 3306,
     'user': 'app',
     'password': 'app',
