@@ -3,8 +3,8 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 
-# Используем имя сервиса из allure_report.yml
-BASE_UI_URL = "http://aqa-shop:8080"
+# Используем localhost, потому что aqa-shop запускается через docker compose
+BASE_UI_URL = "http://localhost:8080"
 
 @allure.title("UI: Проверка загрузки страницы")
 @allure.description("Проверяем, что главная страница загружается")

@@ -9,15 +9,12 @@ allure-report/
 
 # Node.js
 gate-simulator/node_modules/
+aqa-shop/node_modules/
 
 # IDE
 .idea/
 .vscode/
 
-# Системные
+# System
 .DS_Store
 Thumbs.db
-
-gate-simulator/node_modules/
-aqa-shop/node_modules/
-node_modules/
